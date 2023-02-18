@@ -1,0 +1,35 @@
+.edit-comment {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1rem;
+    grid-area: content;
+}
+
+.edit-comment__input {
+    resize: none;
+    width: 100%;
+    outline: none;
+    border: 1px solid var(--neutral-light-grey);
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.edit-comment__button {
+    align-self: flex-end;
+    height: max-content;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--neutral-white);
+    background-color: var(--primary-moderate-blue);
+    border-radius: 10px;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+}
+
+/* @media (max-width: 800px) {
+   
+} */
