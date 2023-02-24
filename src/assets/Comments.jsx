@@ -11,7 +11,7 @@ export default function Comments() {
     const [lastId, setLastId] = useState(5)
     const [activeComment, setActiveComment] = useState(null)
     const [activeModal, setActiveModal] = useState(null)
-    
+
     React.useEffect(() => {
         localStorage.setItem('comments', JSON.stringify(commentData))
     }, [commentData])
@@ -19,7 +19,7 @@ export default function Comments() {
     function sortComments() {
         setCommentData(prevData => prevData.sort((a, b) => b.score - a.score))
     };
-    
+
     function scoreChange(id, add = true, replyId) {
         setCommentData(prevCommentData => {
             const newCommentData = prevCommentData.map(com => {
@@ -69,7 +69,7 @@ export default function Comments() {
                         replies: [
                             ...comment.replies,
                             {
-                                ...newCommentData, 
+                                ...newCommentData,
                                 id: lastId
                             }
                 ]
@@ -148,7 +148,24 @@ export default function Comments() {
                         saveNewComment={saveNewComment}
                         activeModal={activeModal}
                         setActiveModal={setActiveModal}
-                    />
+                    >
+                        {comment.replies.map(reply => (
+                            <Comment
+                                key={reply.id}
+                                {...reply}
+                                commentId={comment.id}
+                                scoreChange={scoreChange}
+                                currentUser={currentUser}
+                                editComment={editComment}
+                                confirmDelete={deleteComment}
+                                activeComment={activeComment}
+                                setActiveComment={setActiveComment}
+                                saveNewComment={saveNewComment}
+                                activeModal={activeModal}
+                                setActiveModal={setActiveModal}
+                            />
+                        ))}
+                    </Comment>
                 );
             })}
             <NewComment
