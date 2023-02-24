@@ -112,25 +112,26 @@ export default function Comment(props) {
                 replyId={null}
             />}
             <div className={CommentCSS['comment-replies-container']}>
-                {props.replies && props.replies.map(reply => {
-                    return (
-                        <Replies
-                            key={reply.id}
-                            {...reply}
-                            scoreChange={props.scoreChange}
-                            commentId={props.id}
-                            currentUser={props.currentUser}
-                            editComment={props.editComment}
-                            confirmDelete={props.confirmDelete}
-                            activeComment={props.activeComment}
-                            setActiveComment={props.setActiveComment}
-                            saveNewComment={props.saveNewComment}
-                            activeModal={props.activeModal}
-                            setActiveModal={props.setActiveModal}
-                        />
-                    );
-                })}
+                {props.children}
             </div>
+                {/*{props.replies && props.replies.map(reply => {*/}
+                {/*    return (*/}
+                {/*        <Replies*/}
+                {/*            key={reply.id}*/}
+                {/*            {...reply}*/}
+                {/*            scoreChange={props.scoreChange}*/}
+                {/*            commentId={props.id}*/}
+                {/*            currentUser={props.currentUser}*/}
+                {/*            editComment={props.editComment}*/}
+                {/*            confirmDelete={props.confirmDelete}*/}
+                {/*            activeComment={props.activeComment}*/}
+                {/*            setActiveComment={props.setActiveComment}*/}
+                {/*            saveNewComment={props.saveNewComment}*/}
+                {/*            activeModal={props.activeModal}*/}
+                {/*            setActiveModal={props.setActiveModal}*/}
+                {/*        />*/}
+                {/*    );*/}
+                {/*})}*/}
         </div>
     )
 }
