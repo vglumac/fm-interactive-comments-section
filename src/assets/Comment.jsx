@@ -1,15 +1,20 @@
 import React from "react"
 import { useState } from 'react'
-import Replies from "./Replies.jsx"
 import DeleteModal from "./DeleteModal"
 import NewComment from "./NewComment"
 import CommentCSS from "./comment.module.css"
 
 export default function Comment(props) {
     function handleAddClick() {
+        if (props.commentId) {
+            return props.scoreChange(props.commentId, true, props.id)
+        }
         props.scoreChange(props.id)
     }
     function handleMinusClick() {
+        if (props.commentId) {
+            return props.scoreChange(props.commentId, false, props.id)
+        }
         props.scoreChange(props.id, false)
     }
 
@@ -50,6 +55,9 @@ export default function Comment(props) {
 
     function confirmEdit() {
         if (editedComment.content) {
+            if (props.commentId) {
+                props.editComment(editedComment, props.commentId, props.id)
+            }
             props.editComment(editedComment, props.id)
         }
     }
@@ -101,37 +109,19 @@ export default function Comment(props) {
             {isReplying && <NewComment
                 {...props.currentUser}
                 saveNewComment={props.saveNewComment}
-                replyingToId={props.id}
+                replyingToId={props.commentId ? props.commentId : props.id}
                 buttonLabel="REPLY"
                 placeholderMessage={`@${props.user.username}`}
             />}
             {isDeleting && <DeleteModal
                 closeModal={closeModal}
                 confirmDelete={props.confirmDelete}
-                commentId={props.id}
-                replyId={null}
+                commentId={props.commentId ? props.commentId : props.id}
+                replyId={props.commentId ? props.id : null}
             />}
             <div className={CommentCSS['comment-replies-container']}>
                 {props.children}
             </div>
-                {/*{props.replies && props.replies.map(reply => {*/}
-                {/*    return (*/}
-                {/*        <Replies*/}
-                {/*            key={reply.id}*/}
-                {/*            {...reply}*/}
-                {/*            scoreChange={props.scoreChange}*/}
-                {/*            commentId={props.id}*/}
-                {/*            currentUser={props.currentUser}*/}
-                {/*            editComment={props.editComment}*/}
-                {/*            confirmDelete={props.confirmDelete}*/}
-                {/*            activeComment={props.activeComment}*/}
-                {/*            setActiveComment={props.setActiveComment}*/}
-                {/*            saveNewComment={props.saveNewComment}*/}
-                {/*            activeModal={props.activeModal}*/}
-                {/*            setActiveModal={props.setActiveModal}*/}
-                {/*        />*/}
-                {/*    );*/}
-                {/*})}*/}
         </div>
     )
 }

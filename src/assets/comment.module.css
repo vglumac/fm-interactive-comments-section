@@ -37,6 +37,10 @@
     color: var(--primary-moderate-blue);
 }
 
+.comment__rating-button {
+    cursor: pointer;
+}
+
 .comment__user {
     grid-area: user;
     display: flex;
@@ -73,11 +77,16 @@
     display: flex;
 }
 
+
 .comment__button {
     color: var(--primary-moderate-blue);
     font-weight: 700;
     padding: 0 0.5rem;
     cursor: pointer;
+}
+
+.comment__button:hover {
+    opacity: 0.6;
 }
 
 .button--delete {
