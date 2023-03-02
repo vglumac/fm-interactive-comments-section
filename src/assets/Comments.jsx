@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import { useState, useEffect } from 'react'
 import data from '../../data.json'
 import Comment from './Comment.jsx'
@@ -16,13 +16,13 @@ export default function Comments() {
         localStorage.setItem('comments', JSON.stringify(commentData))
     }, [commentData])
 
-    function sortByScore(array) {
-       return array.sort((a, b) => b.score - a.score);
+    function sortByScore(a, b) {
+       return b.score - a.score;
     }
     
     function scoreChange(id, add = true, replyId) {
         setCommentData(prevCommentData => {
-            const newCommentData = prevCommentData.map(com => {
+            return prevCommentData.map(com => {
                 if (id === com.id) {
                     if (replyId) {
                         return {
@@ -44,8 +44,7 @@ export default function Comments() {
                     }
                 }
                 return com;
-            });
-            return sortByScore(newCommentData);
+            }).sort(sortByScore);
         })
     }
 
