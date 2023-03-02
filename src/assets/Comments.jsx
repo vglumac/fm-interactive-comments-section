@@ -16,9 +16,9 @@ export default function Comments() {
         localStorage.setItem('comments', JSON.stringify(commentData))
     }, [commentData])
 
-    function sortComments() {
-        setCommentData(prevData => prevData.sort((a, b) => b.score - a.score))
-    };
+    function sortByScore(array) {
+       return array.sort((a, b) => b.score - a.score);
+    }
     
     function scoreChange(id, add = true, replyId) {
         setCommentData(prevCommentData => {
@@ -45,9 +45,8 @@ export default function Comments() {
                 }
                 return com;
             });
-            return newCommentData;
+            return sortByScore(newCommentData);
         })
-        sortComments();
     }
 
     function saveNewComment(newCommentData, replyingToId = null) {

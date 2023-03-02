@@ -7,18 +7,20 @@ import CommentCSS from "./comment.module.css"
 export default function Comment(props) {
     function handleAddClick() {
         if (props.commentId) {
-            return props.scoreChange(props.commentId, true, props.id)
+            props.scoreChange(props.commentId, true, props.id)
+        } else {
+            props.scoreChange(props.id)
         }
-        props.scoreChange(props.id)
     }
     function handleMinusClick() {
         if (props.commentId) {
-            return props.scoreChange(props.commentId, false, props.id)
+            props.scoreChange(props.commentId, false, props.id)
+        } else {
+            props.scoreChange(props.id, false)
         }
-        props.scoreChange(props.id, false)
     }
 
-    const currentUser = props.currentUser.username === props.user.username;
+    const isCurrentUser = props.currentUser.username === props.user.username;
 
     /* Reply */
 
@@ -65,7 +67,7 @@ export default function Comment(props) {
     return (
         <div>
             <div className={CommentCSS["comment-container"]}>
-                <div className={`${CommentCSS.comment} ${currentUser ? CommentCSS.currentUser : ""}`}>
+                <div className={`${CommentCSS.comment} ${isCurrentUser ? CommentCSS.currentUser : ""}`}>
                     <div className={CommentCSS["comment__rating"]}>
                         <img className={CommentCSS["comment__rating-button"]} src='./public/icon-plus.svg' onClick={handleAddClick} />
                         <div className={CommentCSS["comment__rating-sum"]}>{props.score}</div>
@@ -80,15 +82,15 @@ export default function Comment(props) {
                         {props.createdAt}
                     </div>
                     <div className={CommentCSS["comment__buttons"]}>
-                        {!currentUser && <div className={CommentCSS["comment__button"]} onClick={handleReplyClick}>
+                        {!isCurrentUser && <div className={CommentCSS["comment__button"]} onClick={handleReplyClick}>
                             <img src='./icon-reply.svg' alt="reply-icon" />
                             <span>Reply</span>
                         </div>}
-                        {currentUser && <div className={`${CommentCSS["comment__button"]} ${CommentCSS["button--delete"]}`} onClick={handleDeleteClick}>
+                        {isCurrentUser && <div className={`${CommentCSS["comment__button"]} ${CommentCSS["button--delete"]}`} onClick={handleDeleteClick}>
                             <img src='./icon-delete.svg' alt="delete-icon" />
                             <span>Delete</span>
                         </div>}
-                        {currentUser && <div className={CommentCSS["comment__button"]} onClick={handleEditClick}>
+                        {isCurrentUser && <div className={CommentCSS["comment__button"]} onClick={handleEditClick}>
                             <img src='./icon-edit.svg' alt="edit-icon" />
                             <span>Edit</span>
                         </div>}
