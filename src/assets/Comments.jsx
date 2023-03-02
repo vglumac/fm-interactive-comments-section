@@ -1,5 +1,5 @@
 import React from "react"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import data from '../../data.json'
 import Comment from './Comment.jsx'
 import NewComment from './NewComment.jsx'
@@ -12,7 +12,7 @@ export default function Comments() {
     const [activeComment, setActiveComment] = useState(null)
     const [activeModal, setActiveModal] = useState(null)
     
-    React.useEffect(() => {
+    useEffect(() => {
         localStorage.setItem('comments', JSON.stringify(commentData))
     }, [commentData])
 
