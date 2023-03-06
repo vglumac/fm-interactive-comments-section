@@ -1,5 +1,5 @@
-import React from "react"
-import { useState } from 'react'
+import React from 'react'
+import { useState, useEffect } from 'react'
 import data from '../../data.json'
 import Comment from './Comment.jsx'
 import NewComment from './NewComment.jsx'
@@ -11,18 +11,18 @@ export default function Comments() {
     const [lastId, setLastId] = useState(5)
     const [activeComment, setActiveComment] = useState(null)
     const [activeModal, setActiveModal] = useState(null)
-
-    React.useEffect(() => {
+    
+    useEffect(() => {
         localStorage.setItem('comments', JSON.stringify(commentData))
     }, [commentData])
 
-    function sortComments() {
-        setCommentData(prevData => prevData.sort((a, b) => b.score - a.score))
-    };
-
+    function sortByScore(a, b) {
+       return b.score - a.score;
+    }
+    
     function scoreChange(id, add = true, replyId) {
         setCommentData(prevCommentData => {
-            const newCommentData = prevCommentData.map(com => {
+            return prevCommentData.map(com => {
                 if (id === com.id) {
                     if (replyId) {
                         return {
@@ -44,10 +44,8 @@ export default function Comments() {
                     }
                 }
                 return com;
-            });
-            return newCommentData;
+            }).sort(sortByScore);
         })
-        sortComments();
     }
 
     function saveNewComment(newCommentData, replyingToId = null) {
@@ -69,7 +67,7 @@ export default function Comments() {
                         replies: [
                             ...comment.replies,
                             {
-                                ...newCommentData,
+                                ...newCommentData, 
                                 id: lastId
                             }
                 ]
@@ -149,7 +147,7 @@ export default function Comments() {
                         activeModal={activeModal}
                         setActiveModal={setActiveModal}
                     >
-                        {comment.replies.map(reply => (
+                         {comment.replies.map(reply => (
                             <Comment
                                 key={reply.id}
                                 {...reply}
@@ -166,6 +164,7 @@ export default function Comments() {
                             />
                         ))}
                     </Comment>
+                    
                 );
             })}
             <NewComment
