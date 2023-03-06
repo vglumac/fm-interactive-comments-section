@@ -69,9 +69,9 @@ export default function Comment(props) {
             <div className={CommentCSS["comment-container"]}>
                 <div className={`${CommentCSS.comment} ${isCurrentUser ? CommentCSS.currentUser : ""}`}>
                     <div className={CommentCSS["comment__rating"]}>
-                        <img className={CommentCSS["comment__rating-button"]} src='./public/icon-plus.svg' onClick={handleAddClick} />
+                        <img className={CommentCSS["comment__rating-button"]} src='./icon-plus.svg' onClick={handleAddClick} />
                         <div className={CommentCSS["comment__rating-sum"]}>{props.score}</div>
-                        <img className={CommentCSS["comment__rating-button"]} src='./public/icon-minus.svg' onClick={handleMinusClick} />
+                        <img className={CommentCSS["comment__rating-button"]} src='./icon-minus.svg' onClick={handleMinusClick} />
                     </div>
 
                     <div className={CommentCSS["comment__user"]}>
